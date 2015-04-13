@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407011634) do
+ActiveRecord::Schema.define(version: 20150413011054) do
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",         null: false
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20150407011634) do
     t.string   "username",               default: "changeme", null: false
     t.string   "first_name",             default: "John",     null: false
     t.string   "last_name",              default: "Doe",      null: false
+    t.boolean  "admin",                  default: false
+    t.float    "share",                  default: 1.0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
