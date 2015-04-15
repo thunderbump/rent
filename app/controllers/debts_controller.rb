@@ -10,6 +10,7 @@ class DebtsController < ApplicationController
 
   def create
     @debt = Debt.new(debt_params)
+    @debt.owner = current_user
     @debt.save
     debt_params[:user_ids].each do |uid|
       if integer? uid

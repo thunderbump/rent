@@ -19,7 +19,8 @@ class Users::SessionsController < Devise::SessionsController
 
   def dashboard
 
-    @debts = ""
+    @owned_debts = Debt.where(owner: current_user.id)
+    @debts = Debt.joins(:debtors).where("debtors.user_id = ?", current_user.id)
   end
 
   protected
