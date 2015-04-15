@@ -1,5 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   before_filter :configure_sign_in_params, only: [:create]
+  skip_before_filter :is_authenticated_user, only: [:new, :create]
 
   # GET /resource/sign_in
   def new
@@ -14,6 +15,11 @@ class Users::SessionsController < Devise::SessionsController
   # DELETE /resource/sign_out
   def destroy
     super
+  end
+
+  def dashboard
+
+    @debts = ""
   end
 
   protected
