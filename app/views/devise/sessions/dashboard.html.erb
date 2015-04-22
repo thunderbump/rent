@@ -8,6 +8,8 @@
     <tr>
       <td><%= debt.description%></td>
       <td><%= debt.amount%></td>
+      <td><%= link_to "edit", edit_debt_path(debt) %></td>
+      <td><%= link_to "delete", debt, method: :delete, data: { confirm: "delete #{debt.description}?" } %></td>
     </tr>
   <% end %>
 </table>
@@ -15,14 +17,82 @@
 <table>
   <tr>
     <th>Description</th>
-    <th>Amount</th>
+    <th>Total Amount</th>
+    <th>Amount Owed</th>
     <th>Owner</th>
   </tr>
   <% @debts.each do |debt| %>
     <tr>
       <td><%= debt.description %></td>
       <td><%= debt.amount %></td>
+      <td><%= debt.users_share(current_user) %>
       <td><%= debt.owner.first_name %></td>
+      <td><%= link_to "show", debt_path(debt) %></td>
     </tr>
   <% end %>
-</table>
+  <tr>
+    <td colspan=2></td>
+    <td><%= @debts.map { |d| d.users_share(current_user) } .sum %></td>
+    <td></td>
+  </table>
+  <h1>Payments Made</h1>
+  <table>
+    <tr>
+      <th>Source</th>
+      <th>Destination</th>
+      <th>Creator</th>
+      <th>Amount</th>
+      <th>Accepted</th>
+    </tr>
+    <% @payments_made.each do |payment| %>
+      <tr>
+        <td><%= payment.source.first_name %></td>
+        <td><%= payment.destination.first_name %></td>
+        <td><%= payment.creator.first_name %></td>
+        <td><%= payment.amount %></td>
+        <td><%= payment.accepted %></td>
+      </tr>
+    <% end %>
+  </table>
+  <h1>Payments Received</h1>
+  <table>
+    <tr>
+      <th>Source</th>
+      <th>Destination</th>
+      <th>Creator</th>
+      <th>Amount</th>
+      <th>Accepted</th>
+    </tr>
+    <% @payments_received.each do |payment| %>
+      <tr>
+        <td><%= payment.source.first_name %></td>
+        <td><%= payment.destination.first_name %></td>
+        <td><%= payment.creator.first_name %></td>
+        <td><%= payment.amount %></td>
+        <td><%= payment.accepted %></td>
+      </tr>
+    <% end %>
+  </table>
+  <h1>Payments Pending</h1>
+  <table>
+    <tr>
+      <th>Source</th>
+      <th>Destination</th>
+      <th>Creator</th>
+      <th>Amount</th>
+      <th>Accepted</th>
+    </tr>
+    <% @payments_pending.each do |payment| %>
+      <tr>
+        <td><%= payment.source.first_name %></td>
+        <td><%= payment.destination.first_name %></td>
+        <td><%= payment.creator.first_name %></td>
+        <td><%= payment.amount %></td>
+        <td><%= payment.accepted %></td>
+      </tr>
+    <% end %>
+  </table>
+
+<br><br>
+<%= link_to "Add debt", new_debt_path %><br>
+<%= link_to "Make payment", new_payment_path %>

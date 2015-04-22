@@ -11,7 +11,7 @@
     <tr>
       <td><%= debt.description %></td>
       <td><%= debt.amount %></td>
-      <td><% debt.users.each do |user| %><%= user.first_name %><% end %></td>
+      <td><% debt.users.each do |user| %><%= user.first_name + " " %><% end %></td>
       <td><%= debt.owner.first_name %></td>
       <td><%= link_to :edit, edit_debt_path(debt) %></td>
       <td><%= link_to :delete, debt_path(debt), method: :delete,

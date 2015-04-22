@@ -18,7 +18,9 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def dashboard
-
+    @payments_made = Payment.where(source: current_user.id)
+    @payments_received = Payment.where(destination: current_user.id)
+    @payments_pending = Payment.where(destination: current_user.id).where(accepted: false)
     @owned_debts = Debt.where(owner: current_user.id)
     @debts = Debt.joins(:debtors).where("debtors.user_id = ?", current_user.id)
   end
