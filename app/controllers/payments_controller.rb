@@ -40,8 +40,12 @@ class PaymentsController < ApplicationController
   end
 
   def update
-    @payment.update(payment_params)
-    respond_with(@payment)
+    if @payment.update(payment_params)
+      respond_with(@payment)
+    else
+      @users = User.all
+      respond_with(@payment)
+    end
   end
 
   def destroy

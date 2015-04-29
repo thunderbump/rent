@@ -5,6 +5,8 @@ class Debt < ActiveRecord::Base
 
   accepts_nested_attributes_for :debtors
 
+  validates :amount, :numericality => { :greater_than_or_equal_to => 0 }
+
   def users_share(user)
     total_shares = 0
     my_share = 0
@@ -16,6 +18,10 @@ class Debt < ActiveRecord::Base
     end
     share_ratio = my_share / total_shares
     return amount * share_ratio
+  end
+
+  def other_guy
+    return owner.first_name
   end
 
 end

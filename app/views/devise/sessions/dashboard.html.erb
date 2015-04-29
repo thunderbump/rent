@@ -1,79 +1,42 @@
-<h1>Owned Debts</h1>
+<h1>Overview</h1>
 <table>
   <tr>
-    <th>Description</th>
-    <th>Amount</th>
+    <th>User</th>
+    <th>Amount Owed</th>
   </tr>
-  <% @owned_debts.each do |debt| %>
+  <% @users.each do |user| %>
     <tr>
-      <td><%= debt.description%></td>
-      <td><%= debt.amount%></td>
-      <td><%= link_to "edit", edit_debt_path(debt) %></td>
-      <td><%= link_to "delete", debt, method: :delete, data: { confirm: "delete #{debt.description}?" } %></td>
+      <td><%= user.first_name %></td>
+      <td><%= number_to_currency(current_bill(user)) %></td>
     </tr>
   <% end %>
 </table>
-<h1>Owed Debts</h1>
+
+
+<h1>History</h1>
 <table>
   <tr>
     <th>Description</th>
-    <th>Total Amount</th>
-    <th>Amount Owed</th>
-    <th>Owner</th>
+    <th>Other Guy</th>
+    <th>Amount</th>
   </tr>
-  <% @debts.each do |debt| %>
+  <% @history.each do |element| %>
     <tr>
-      <td><%= debt.description %></td>
-      <td><%= debt.amount %></td>
-      <td><%= debt.users_share(current_user) %>
-      <td><%= debt.owner.first_name %></td>
-      <td><%= link_to "show", debt_path(debt) %></td>
+      <td><%= element.description %></td>
+      <td><%= element.other_guy %></td>
+      <td><%= number_to_currency(element.users_share(current_user)) %></td>
     </tr>
   <% end %>
-  <tr>
-    <td colspan=2></td>
-    <td><%= @debts.map { |d| d.users_share(current_user) } .sum %></td>
-    <td></td>
-  </table>
-  <h1>Payments Made</h1>
-  <table>
-    <tr>
-      <th>Source</th>
-      <th>Destination</th>
-      <th>Creator</th>
-      <th>Amount</th>
-      <th>Accepted</th>
-    </tr>
-    <% @payments_made.each do |payment| %>
-      <tr>
-        <td><%= payment.source.first_name %></td>
-        <td><%= payment.destination.first_name %></td>
-        <td><%= payment.creator.first_name %></td>
-        <td><%= payment.amount %></td>
-        <td><%= payment.accepted %></td>
-      </tr>
-    <% end %>
-  </table>
-  <h1>Payments Received</h1>
-  <table>
-    <tr>
-      <th>Source</th>
-      <th>Destination</th>
-      <th>Creator</th>
-      <th>Amount</th>
-      <th>Accepted</th>
-    </tr>
-    <% @payments_received.each do |payment| %>
-      <tr>
-        <td><%= payment.source.first_name %></td>
-        <td><%= payment.destination.first_name %></td>
-        <td><%= payment.creator.first_name %></td>
-        <td><%= payment.amount %></td>
-        <td><%= payment.accepted %></td>
-      </tr>
-    <% end %>
-  </table>
-  <h1>Payments Pending</h1>
+</table>
+<table>
+  <%= render :partial => "line_item_header" %>
+  <% @history.each do |element| %>
+    <%= render :partial => "line_item_tr", locals: { element: element } %>
+  <% end %>
+</table>
+
+<h1>Payments Pending</h1>
+<% if @payments_pending.size > 0 %>
   <table>
     <tr>
       <th>Source</th>
@@ -92,6 +55,9 @@
       </tr>
     <% end %>
   </table>
+<% else %>
+  No payments pending
+<% end %>
 
 <br><br>
 <%= link_to "Add debt", new_debt_path %><br>
