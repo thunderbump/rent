@@ -13,3 +13,83 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+	background-color: #BDC3C7;
+	font-family: Circular, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.header_text {
+	position: relative;
+	top: 50%;
+	transform; translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+
+	color: black;
+	
+}
+a.header_links:link {
+	color: black;
+	text-decoration: none;
+	background-color: #4183D7;
+}
+a.header_links:hover {
+	color: black;
+	text-decoration: underline;
+	background-color: #4183D7;
+}
+a.header_links:visited {
+	color: black;
+	text-decoration: none;
+	background-color: #4183D7;
+}
+.body {
+	padding-top: 60px;
+}
+
+.header_left {
+	width: 100%;
+	height: 60px;
+	
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	
+	background-color: #4183D7;
+}
+
+.header_right {
+	height: 60px;
+	
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	
+	background-color: #4183D7;
+	z-index: 1;
+}
+
+.group_area {
+	background-color: #EEEEEE;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 20px;
+	padding: 5px;
+	width: 90%;
+}
+
+tr.table_header {
+	background-color: #BDC3C7;
+}
+tr.odd_row {
+	background-color: #EEEEEE;
+}
+tr.even_row {
+	background-color: #DDDDDD;
+}
+td.numeric_field {
+	text-align: right;
+}

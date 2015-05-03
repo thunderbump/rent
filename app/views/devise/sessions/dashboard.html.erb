@@ -1,16 +1,21 @@
+<div class="group_area">
+
 <h1>Overview</h1>
 <table>
-  <tr>
+  <tr class="table_header">
     <th>User</th>
     <th>Amount Owed</th>
   </tr>
   <% @users.each do |user| %>
-    <tr>
+    <tr class="<%= cycle("odd_row", "even_row") %>">
       <td><%= user %></td>
-      <td><%= number_to_currency(current_user.current_bill_with(user)) %></td>
+      <td class="numeric_field"><%= number_to_currency(current_user.current_bill_with(user)) %></td>
     </tr>
   <% end %>
 </table>
+
+</div>
+<div class="group_area">
 
 <h1>Breakdowns</h1>
 <% @users.each do |user| %>
@@ -18,24 +23,29 @@
   <table>
     <%= render :partial => "line_item_header" %>
     <% current_user.debts_and_payments_involving(user).each do |element| %>
-      <%= render :partial => "line_item_tr", locals: { element: element, user: user } %>
+      <%= render :partial => "line_item_tr", locals: { element: element, user: user, tr_class: cycle("odd_row", "even_row")} %>
     <% end %>
   </table>
 <% end %>
 
+</div>
+<div class="group_area">
 
 <h1>History</h1>
 <table>
   <%= render :partial => "line_item_header" %>
   <% @history.each do |element| %>
-    <%= render :partial => "line_item_tr", locals: { element: element, user: current_user } %>
+    <%= render :partial => "line_item_tr", locals: { element: element, user: current_user, tr_class:cycle("odd_row", "even_row")} %>
   <% end %>
 </table>
+
+</div>
+<div class="group_area">
 
 <h1>Payments Pending</h1>
 <% if @payments_pending.size > 0 %>
   <table>
-    <tr>
+    <tr class="table_header">
       <th>Source</th>
       <th>Destination</th>
       <th>Creator</th>
@@ -43,11 +53,11 @@
       <th>Accepted</th>
     </tr>
     <% @payments_pending.each do |payment| %>
-      <tr>
+      <tr class="<%= cycle("odd_row", "even_row") %>">
         <td><%= payment.source %></td>
         <td><%= payment.destination %></td>
         <td><%= payment.creator %></td>
-        <td><%= payment.amount %></td>
+        <td class="numeric_field"><%= payment.amount %></td>
         <td><%= payment.accepted %></td>
       </tr>
     <% end %>
