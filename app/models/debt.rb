@@ -20,8 +20,7 @@ class Debt < ActiveRecord::Base
     return amount * share_ratio
   end
 
-  def other_guy
-    return owner.first_name
+  def to_s
+    "#{owner.to_s}: #{description}"
   end
-
 end

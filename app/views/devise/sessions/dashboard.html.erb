@@ -6,32 +6,29 @@
   </tr>
   <% @users.each do |user| %>
     <tr>
-      <td><%= user.first_name %></td>
-      <td><%= number_to_currency(current_bill(user)) %></td>
+      <td><%= user %></td>
+      <td><%= number_to_currency(current_user.current_bill_with(user)) %></td>
     </tr>
   <% end %>
 </table>
+
+<h1>Breakdowns</h1>
+<% @users.each do |user| %>
+  <h2><%= user %></h2>
+  <table>
+    <%= render :partial => "line_item_header" %>
+    <% current_user.debts_and_payments_involving(user).each do |element| %>
+      <%= render :partial => "line_item_tr", locals: { element: element, user: user } %>
+    <% end %>
+  </table>
+<% end %>
 
 
 <h1>History</h1>
 <table>
-  <tr>
-    <th>Description</th>
-    <th>Other Guy</th>
-    <th>Amount</th>
-  </tr>
-  <% @history.each do |element| %>
-    <tr>
-      <td><%= element.description %></td>
-      <td><%= element.other_guy %></td>
-      <td><%= number_to_currency(element.users_share(current_user)) %></td>
-    </tr>
-  <% end %>
-</table>
-<table>
   <%= render :partial => "line_item_header" %>
   <% @history.each do |element| %>
-    <%= render :partial => "line_item_tr", locals: { element: element } %>
+    <%= render :partial => "line_item_tr", locals: { element: element, user: current_user } %>
   <% end %>
 </table>
 
@@ -47,9 +44,9 @@
     </tr>
     <% @payments_pending.each do |payment| %>
       <tr>
-        <td><%= payment.source.first_name %></td>
-        <td><%= payment.destination.first_name %></td>
-        <td><%= payment.creator.first_name %></td>
+        <td><%= payment.source %></td>
+        <td><%= payment.destination %></td>
+        <td><%= payment.creator %></td>
         <td><%= payment.amount %></td>
         <td><%= payment.accepted %></td>
       </tr>

@@ -15,11 +15,15 @@ class Payment < ActiveRecord::Base
     if user.id == source.id
       return amount * -1
     end
-    return 0
+    return amount
   end
 
-  def other_guy
-    return destination.first_name
+  def owner
+    return destination
+  end
+
+  def to_s
+    description
   end
 
   #def description
