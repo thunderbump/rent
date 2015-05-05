@@ -32,7 +32,7 @@ class PaymentsController < ApplicationController
     end
 
     if @payment.save
-      respond_with(@payment)
+      redirect_to dashboard_sessions_path
     else
       @users = User.all
       render 'payments/new'

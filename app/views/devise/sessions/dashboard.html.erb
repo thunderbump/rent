@@ -48,17 +48,15 @@
     <tr class="table_header">
       <th>Source</th>
       <th>Destination</th>
-      <th>Creator</th>
       <th>Amount</th>
-      <th>Accepted</th>
+      <th> </th>
     </tr>
     <% @payments_pending.each do |payment| %>
       <tr class="<%= cycle("odd_row", "even_row") %>">
         <td><%= payment.source %></td>
         <td><%= payment.destination %></td>
-        <td><%= payment.creator %></td>
         <td class="numeric_field"><%= payment.amount %></td>
-        <td><%= payment.accepted %></td>
+        <td><%= link_to "Accept", payment_path(payment, :payment => {:accepted => true}), :method => :put, :confirm => "Accept payment?", :class => "group_links" %></td>
       </tr>
     <% end %>
   </table>

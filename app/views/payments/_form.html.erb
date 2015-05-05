@@ -19,10 +19,7 @@
     <%= f.label :destination %>
     <%= f.collection_select :destination_id, @users, :id, :first_name %>
   </div>
-  <div class="field">
-    <%= f.label :creator_by %>
-    <%= f.collection_select :creator_id, @users, :id, :first_name %>
-  </div>
+  <%= f.hidden_field :creator_id, :value => current_user.id %>
   <div class="field">
     <%= f.label :amount %><br>
     <%= f.text_field :amount %>

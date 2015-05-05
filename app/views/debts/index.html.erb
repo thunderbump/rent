@@ -1,14 +1,16 @@
+<div class="group_area">
 <h1>Debts</h1>
 
 <table>
-  <tr>
+  <tr class="table_header">
     <th>Description</th>
     <th>Amount</th>
     <th>Owers</th>
     <th>Owed</th>
+    <th colspan=2> </th>
   </tr>
   <% @debts.each do |debt| %>
-    <tr>
+    <tr class="<%= cycle("odd_row", "even_row")%>">
       <td><%= debt.description %></td>
       <td><%= debt.amount %></td>
       <td><% debt.users.each do |user| %><%= user.first_name + " " %><% end %></td>
@@ -23,3 +25,4 @@
 <br><br>
 
 <%= link_to :New, new_debt_path %>
+</div>

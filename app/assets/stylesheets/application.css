@@ -59,6 +59,7 @@ a.header_links:visited {
 	left: 0px;
 	
 	background-color: #4183D7;
+	box-shadow: 0px 2px 2px #888888;
 }
 
 .header_right {
@@ -79,6 +80,22 @@ a.header_links:visited {
 	margin-top: 20px;
 	padding: 5px;
 	width: 90%;
+	box-shadow: 2px 2px 2px #888888;
+}
+a.group_links:link {
+	color: black;
+	text-decoration: none;
+	background-color: #EEEEEE;
+}
+a.group_links:hover {
+	color: black;
+	text-decoration: underline;
+	background-color: #EEEEEE;
+}
+a.group_links:visited {
+	color: black;
+	text-decoration: none;
+	background-color: #EEEEEE;
 }
 
 tr.table_header {
