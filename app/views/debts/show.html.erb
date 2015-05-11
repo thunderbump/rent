@@ -15,11 +15,11 @@
     </tr>
     <tr>
       <td>Amount:</td>
-      <td><%= @debt.amount %></td>
+      <td><%= number_to_currency(@debt.amount) %></td>
     </tr>
     <tr>
       <td>Your share</td>
-      <td><%= @debt.users_share(current_user) %></td>
+      <td><%= number_to_currency(@debt.users_share(current_user)) %></td>
     </tr>
   </table>
   <br />

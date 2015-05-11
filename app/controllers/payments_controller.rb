@@ -52,8 +52,11 @@ class PaymentsController < ApplicationController
   end
 
   def destroy
+    if @payment.creator.id != current_user.id
+      redirect_to dashboard_sessions_path
+    end
     @payment.destroy
-    respond_with(@payment)
+    redirect_to dashboard_sessions_path
   end
 
   private

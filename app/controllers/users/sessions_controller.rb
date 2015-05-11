@@ -26,7 +26,6 @@ class Users::SessionsController < Devise::SessionsController
     @users = User.where("id NOT IN (:id)", id: current_user.id)
     @history = current_user.all_debts_and_payments
     @payments_pending = Payment.where(destination: current_user.id).where(accepted: false)
-    @test = current_user.all_debts
   end
 
   protected

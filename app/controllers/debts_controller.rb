@@ -21,7 +21,7 @@ class DebtsController < ApplicationController
         @debt.debtors.create(:user_id => uid)
       end
     end
-    redirect_to debts_path
+    redirect_to dashboard_sessions_path
   end
 
   def edit
@@ -34,7 +34,7 @@ class DebtsController < ApplicationController
   def update
     @debt = Debt.find(params[:id])
     if @debt.update(debt_params)
-      redirect_to debts_path
+      redirect_to dashboard_sessions_path
     else
       render edit
     end
@@ -46,7 +46,7 @@ class DebtsController < ApplicationController
       debtor.destroy
     end
     @debt.destroy
-    redirect_to debts_path
+    redirect_to dashboard_sessions_path
   end
 
 
