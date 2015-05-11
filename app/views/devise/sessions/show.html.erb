@@ -1,0 +1,9 @@
+<div class="group_area">
+  <h1><%= @user %></h1>
+  <table>
+    <%= render :partial => "/common/line_item_header" %>
+    <% current_user.debts_and_payments_involving(@user).each do |element| %>
+      <%= render :partial => "/common/line_item_tr", locals: { element: element, user: @user, tr_class: cycle("odd_row", "even_row")} %>
+    <% end %>
+  </table>
+</div>

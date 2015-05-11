@@ -8,15 +8,20 @@
 </head>
 <body>
 <% if user_signed_in? %>
-  <div class="header_left"><div class="header_text"><%= link_to "Home", root_path, :class => "header_links" %></div></div>
+  <div class="header_left"><div class="header_text">
+      <%= link_to "Home", root_path, :class => "header_links" %> | 
+      <%= link_to "Charge someone", new_debt_path, :class => "header_links" %> | 
+      <%= link_to "Make payment", new_payment_path, :class => "header_links"  %>
+  </div></div>
   <div class="header_right">
     <div class="header_text">
       <strong>
-        <%= link_to current_user.username.capitalize, edit_user_registration_path, :class => 'header_links' %>
+        <%= link_to current_user.username.capitalize, edit_user_registration_path, :class => 'header_links' %> | 
       </strong>
       <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'header_links'  %>
     </div>
   </div>
+
 <% else %>
   <div class="header_left"> </div>
   <div class="header_right"><div class="header_text">

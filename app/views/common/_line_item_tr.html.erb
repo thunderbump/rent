@@ -1,5 +1,5 @@
 <tr class="<%= tr_class %>">
-  <td><%= element %></td>
+  <td><%= link_to element, element %></td>
   <td class="numeric_field"><%= number_to_currency(element.amount) %></td>
   <td class="numeric_field"><%= number_to_currency(element.users_share(current_user == element.owner ? user : current_user)) %></td>
 </tr>

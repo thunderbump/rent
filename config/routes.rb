@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :payments
+  resources :payments, :debts
 
   devise_for :users, controllers: {
     registrations: "users/registrations",
@@ -7,10 +7,11 @@ Rails.application.routes.draw do
   } 
   devise_scope :user do
     get "users/dashboard", :to => "users/sessions#dashboard", :as => "dashboard_sessions"
+    get "users/:id", :to => "users/sessions#show", :as => "user"
     root "users/sessions#dashboard"
   end
 
-  resources :debts
+  #resources :debts, :users
     
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

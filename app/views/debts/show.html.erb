@@ -1,0 +1,29 @@
+<div class="group_area">
+  <h1><%= @debt.description %></h1><br />
+  <table>
+    <tr>
+      <td>Owner:</td>
+      <td><%= @debt.owner %></td>
+    </tr>
+    <tr>
+      <td>Debtors:</td>
+      <td>
+        <% @debt.users.each do |user| %>
+          <%= user %></td></tr><td></td><td>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Amount:</td>
+      <td><%= @debt.amount %></td>
+    </tr>
+    <tr>
+      <td>Your share</td>
+      <td><%= @debt.users_share(current_user) %></td>
+    </tr>
+  </table>
+  <br />
+  <br />
+  <%= link_to 'Edit', edit_debt_path(@debt) %> |
+  <%= link_to 'Back', root_path %>
+</div>

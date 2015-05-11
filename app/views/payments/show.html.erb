@@ -1,9 +1,10 @@
-<p id="notice"><%= notice %></p>
-
-<p>
+<div class="group_area">
+  <h1>Payment</h1>
+  <strong>Payer:</strong> <%= @payment.source %><br>
+  <strong>Paying to:</strong> <%= @payment.destination %><br><br>
   <strong>Amount:</strong>
-  <%= @payment.amount %>
-</p>
-
+  <%= number_to_currency(@payment.amount) %><br><br>
+  <strong>Created by:</strong><%= @payment.creator %><br><br>
 <%= link_to 'Edit', edit_payment_path(@payment) %> |
 <%= link_to 'Back', payments_path %>
+</div>

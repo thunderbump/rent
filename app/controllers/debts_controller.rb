@@ -8,6 +8,10 @@ class DebtsController < ApplicationController
     @debt = Debt.new
   end
 
+  def show
+    @debt = Debt.find(params[:id])
+  end
+
   def create
     @debt = Debt.new(debt_params)
     @debt.owner = current_user
@@ -22,6 +26,9 @@ class DebtsController < ApplicationController
 
   def edit
     @debt = Debt.find(params[:id])
+    if @debt.owner.id != current_user.id
+      redirect_to dashboard_sessions_path
+    end
   end
 
   def update

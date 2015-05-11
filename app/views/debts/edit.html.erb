@@ -1,0 +1,25 @@
+<div class="group_area">
+  <h1>Edit debt</h1>
+
+  <%= form_for(@debt) do |f| %>
+    <div class="field">
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+    </div>
+    <div class="field">
+      <%= f.label :amount %>
+      <%= f.text_field :amount %>
+    </div>
+    <div class="field">
+      <%= f.label :user_id, "Check all included:" %>
+      <%= f.collection_check_boxes(:user_ids, User.all, :id, :to_s) %>
+    </div>
+    <div class="field">
+      <input type="checkbox" id="select_all" value="select_all">Select all
+    </div>
+    <div class="submit">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+

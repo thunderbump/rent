@@ -8,34 +8,9 @@
   </tr>
   <% @users.each do |user| %>
     <tr class="<%= cycle("odd_row", "even_row") %>">
-      <td><%= user %></td>
+      <td><%= link_to user, user %></td>
       <td class="numeric_field"><%= number_to_currency(current_user.current_bill_with(user)) %></td>
     </tr>
-  <% end %>
-</table>
-
-</div>
-<div class="group_area">
-
-<h1>Breakdowns</h1>
-<% @users.each do |user| %>
-  <h2><%= user %></h2>
-  <table>
-    <%= render :partial => "line_item_header" %>
-    <% current_user.debts_and_payments_involving(user).each do |element| %>
-      <%= render :partial => "line_item_tr", locals: { element: element, user: user, tr_class: cycle("odd_row", "even_row")} %>
-    <% end %>
-  </table>
-<% end %>
-
-</div>
-<div class="group_area">
-
-<h1>History</h1>
-<table>
-  <%= render :partial => "line_item_header" %>
-  <% @history.each do |element| %>
-    <%= render :partial => "line_item_tr", locals: { element: element, user: current_user, tr_class:cycle("odd_row", "even_row")} %>
   <% end %>
 </table>
 
@@ -63,7 +38,15 @@
 <% else %>
   No payments pending
 <% end %>
+</div>
+<div class="group_area">
 
-<br><br>
-<%= link_to "Add debt", new_debt_path %><br>
-<%= link_to "Make payment", new_payment_path %>
+<h1>History</h1>
+<table>
+  <%= render :partial => "/common/line_item_header" %>
+  <% @history.each do |element| %>
+    <%= render :partial => "/common/line_item_tr", locals: { element: element, user: current_user, tr_class:cycle("odd_row", "even_row")} %>
+  <% end %>
+</table>
+
+</div>

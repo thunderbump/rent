@@ -11,8 +11,11 @@
     <%= f.text_field :amount %>
   </div>
   <div class="field">
-    <%= f.label :user_id %>
-    <%= f.collection_check_boxes(:user_ids, User.where.not(id: current_user.id), :id, :first_name) %>
+    <%= f.label :user_id, "Check all included:" %>
+    <%= f.collection_check_boxes(:user_ids, User.all, :id, :to_s) %>
+  </div>
+  <div class="field">
+    <input type="checkbox" id="select_all" value="select_all">Select all
   </div>
   <div class="submit">
     <%= f.submit %>

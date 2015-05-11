@@ -19,6 +19,9 @@ class PaymentsController < ApplicationController
   end
 
   def edit
+    if @payment.creator.id != current_user.id
+      redirect_to dashboard_sessions_path
+    end
     @users = User.all
   end
 
