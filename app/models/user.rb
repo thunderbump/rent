@@ -16,11 +16,11 @@ class User < ActiveRecord::Base
                                       ).map { |p| p.users_share(user) }
     payer_payments = Payment.where(source_id: id
                            ).where(destination_id: user.id
-                           ).where(accepted: false
+                           ).where(accepted: true
                            ).map { |p| p.users_share(self) }
     biller_payments = Payment.where(source_id: user.id
                             ).where(destination_id: id
-                            ).where(accepted: false
+                            ).where(accepted: true
                             ).map { |p| p.users_share(user) }
 
     payer_debts.sum - biller_debts.sum + payer_payments.sum - biller_payments.sum
