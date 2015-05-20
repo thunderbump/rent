@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :items
+  post "add_to_list", :to => "items#add_to_list", :as => "add_to_list"
+  get "store", :to => "items#store", :as => "store"
+
+  resources :invoices
+
   resources :payments, :debts
 
   devise_for :users, controllers: {

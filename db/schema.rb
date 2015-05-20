@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422015435) do
+ActiveRecord::Schema.define(version: 20150520023704) do
 
   create_table "debtors", force: true do |t|
     t.integer  "user_id"
@@ -32,6 +32,33 @@ ActiveRecord::Schema.define(version: 20150422015435) do
   end
 
   add_index "debts", ["owner_id"], name: "index_debts_on_owner_id"
+
+  create_table "invoices", force: true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "owner_id"
+  end
+
+  add_index "invoices", ["owner_id"], name: "index_invoices_on_owner_id"
+
+  create_table "items", force: true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "needed"
+  end
+
+  create_table "line_items", force: true do |t|
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "invoice_id"
+    t.integer  "item_id"
+  end
+
+  add_index "line_items", ["invoice_id"], name: "index_line_items_on_invoice_id"
+  add_index "line_items", ["item_id"], name: "index_line_items_on_item_id"
 
   create_table "payments", force: true do |t|
     t.float    "amount"

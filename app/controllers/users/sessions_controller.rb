@@ -24,8 +24,10 @@ class Users::SessionsController < Devise::SessionsController
 
   def dashboard
     @users = User.where("id NOT IN (:id)", id: current_user.id)
-    @history = current_user.all_debts_and_payments
+    #@history = current_user.all_debts_and_payments
     @payments_pending = Payment.where(destination: current_user.id).where(accepted: false)
+    @items = Item.all
+    @needed_items = Item.where(needed: true)
   end
 
   protected
