@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "store", :to => "items#store", :as => "store"
 
   resources :invoices
+  get "add_item_to_invoice/:invoice_id/:item_id", :to => "invoices#add_item_to_invoice", :as => "add_item_to_invoice"
 
   resources :payments, :debts
 

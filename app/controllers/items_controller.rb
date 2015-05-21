@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   respond_to :html
 
@@ -52,6 +53,8 @@ class ItemsController < ApplicationController
   end
 
   def store
+    @items = Item.where(needed: true)
+    @invoice = Invoice.find_or_create_by(owner_id: current_user.id)
   end
 
   private

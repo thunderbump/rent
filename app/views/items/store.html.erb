@@ -1,0 +1,5 @@
+<% @items.each do |item| %>
+  <div class="group_area not_selected" id="item<%= item.id %>">
+    <%= link_to item.description, add_item_to_invoice_path(:item_id => item.id, :invoice_id => @invoice.id), :remote => true %>
+  </div>
+<% end %>

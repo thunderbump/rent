@@ -36,12 +36,21 @@ class InvoicesController < ApplicationController
     respond_with(@invoice)
   end
 
+  def add_item_to_invoice
+    @invoice = Invoice.find(params[:invoice_id])
+    @item = Item.find(params[:item_id])
+    LineItem.find_or_create_by(invoice_id: @invoice.id, item_id: @item.id).save
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def set_invoice
       @invoice = Invoice.find(params[:id])
     end
 
     def invoice_params
-      params.require(:invoice).permit(:description)
+      params.require(:invoice).permit(:description)#, :invoice_id, :item_id)
     end
 end

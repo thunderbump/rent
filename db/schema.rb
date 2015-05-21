@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520023704) do
+ActiveRecord::Schema.define(version: 20150521034756) do
 
   create_table "debtors", force: true do |t|
     t.integer  "user_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150520023704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
+    t.boolean  "expensed"
   end
 
   add_index "invoices", ["owner_id"], name: "index_invoices_on_owner_id"
