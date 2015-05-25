@@ -83,6 +83,19 @@ a.header_links:visited {
 	box-shadow: 2px 2px 2px #888888;
 }
 
+.selectable {
+	background-color: #EEEEEE;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 5px;
+        padding: 5px;
+        width: 90%;
+        box-shadow: 2px 2px 2px #888888;
+}
+
+.selected {
+	background-color: #2ECC71;
+}
 
 a.group_links:link {
 	color: black;

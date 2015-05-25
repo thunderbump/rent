@@ -36,12 +36,27 @@ class InvoicesController < ApplicationController
     respond_with(@invoice)
   end
 
-  def add_item_to_invoice
+#  def add_item_to_invoice
+#    @invoice = Invoice.find(params[:invoice_id])
+#    @item = Item.find(params[:item_id])
+#    LineItem.find_or_create_by(invoice_id: @invoice.id, item_id: @item.id).save
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
+
+#  def add_item_to_invoice
+  def toggle_item_in_invoice
     @invoice = Invoice.find(params[:invoice_id])
     @item = Item.find(params[:item_id])
-    LineItem.find_or_create_by(invoice_id: @invoice.id, item_id: @item.id).save
+    if @invoice.items.pluck(:id).include? @item.id
+      @invoice.items.delete(@item)
+    else
+      LineItem.create(invoice_id: @invoice.id, item_id: @item.id).save
+    end
+
     respond_to do |format|
-      format.js
+      format.json
     end
   end
 
