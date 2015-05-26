@@ -1,14 +1,15 @@
 //This approach needed to deal with turbolinks.
 $(window).bind('page:change', function() {
-	init_page();
+	init_list_selectors();
 });
 
-function init_page() {
+function init_list_selectors() {
 	$('.selectable').on('click', function(e) {
-		if ($(e.target).parent().hasClass('selected')) {
-			$(e.target).parent().removeClass('selected');
+		var target = $(e.target).closest('.selectable');
+		if (target.hasClass('selected')) {
+			target.removeClass('selected');
 		} else {
-			$(e.target).parent().addClass('selected');
+			target.addClass('selected');
 		}
 	});
 }
