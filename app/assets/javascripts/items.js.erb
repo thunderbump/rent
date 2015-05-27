@@ -1,0 +1,18 @@
+//This approach needed to deal with turbolinks.
+$(window).bind('page:change', function() {
+	init_list_selectors();
+});
+
+function init_list_selectors() {
+	$('.selectable').on('click', function(e) {
+		var target = $(e.target).closest('.selectable');
+		var itemid = target.data('itemid');
+		$.getJSON('/toggle_item_in_invoice/' + itemid, function(jsondata) {
+			if(jsondata.selected) {
+				target.addClass('selected');
+			} else {
+				target.removeClass('selected');
+			}
+		});
+	});
+}

@@ -28,6 +28,7 @@ class Users::SessionsController < Devise::SessionsController
     @payments_pending = Payment.where(destination: current_user.id).where(accepted: false)
     @items = Item.all
     @needed_items = Item.where(needed: true)
+    @item = Item.new
   end
 
   protected

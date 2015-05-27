@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :invoices
 #  get "add_item_to_invoice/:invoice_id/:item_id", :to => "invoices#add_item_to_invoice", :as => "add_item_to_invoice"
-  get "toggle_item_in_invoice/:invoice_id/:item_id", :to => "invoices#toggle_item_in_invoice", :as => "toggle_item_in_invoice"
+  get "toggle_item_in_invoice/:item_id", :to => "invoices#toggle_item_in_invoice", :as => "toggle_item_in_invoice"
 
   resources :payments, :debts
 

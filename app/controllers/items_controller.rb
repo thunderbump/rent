@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
 
   def store
     @items = Item.where(needed: true)
-    @invoice = Invoice.find_or_create_by(owner_id: current_user.id)
+    @invoice = Invoice.find_or_create_by(owner_id: current_user.id, expensed: false)
   end
 
   private

@@ -54,4 +54,10 @@
     <%= select_tag :item_id, options_from_collection_for_select(@items, :id, :description) %>
     <%= submit_tag "Add to the list" %>
   <% end %>
+  <br>
+  <%= form_for @item do |f| %>
+    <%= f.label :description, "New item" %>
+    <%= f.text_field :description %>
+    <%= f.submit %>
+  <% end %>
 </div>

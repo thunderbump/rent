@@ -22,13 +22,23 @@ class InvoicesController < ApplicationController
 
   def create
     @invoice = Invoice.new(invoice_params)
+    @invoice.expensed = false
     @invoice.save
     respond_with(@invoice)
   end
 
   def update
-    @invoice.update(invoice_params)
-    respond_with(@invoice)
+    if params[:cost]
+      @debt = Debt.create(description: "Store trip", amount: params[:cost], owner_id: current_user.id)
+      @debt.save
+      @invoice.expensed = true
+      @invoice.debt_id = @debt.id
+      @invoice.save
+      redirect_to edit_debt_path(@debt)
+    else
+      @invoice.update(invoice_params)
+      respond_with(@invoice)
+    end
   end
 
   def destroy
@@ -47,12 +57,16 @@ class InvoicesController < ApplicationController
 
 #  def add_item_to_invoice
   def toggle_item_in_invoice
-    @invoice = Invoice.find(params[:invoice_id])
+    #@invoice = Invoice.find(params[:invoice_id])
+    @invoice = Invoice.where(owner_id: current_user.id, expensed: false).first
     @item = Item.find(params[:item_id])
+    @selected
     if @invoice.items.pluck(:id).include? @item.id
       @invoice.items.delete(@item)
+      @selected = false
     else
       LineItem.create(invoice_id: @invoice.id, item_id: @item.id).save
+      @selected = true
     end
 
     respond_to do |format|
