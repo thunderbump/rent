@@ -24,7 +24,8 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.save
-    respond_with(@item)
+    redirect_to root_path
+    #respond_with(@item)
   end
 
   def update
