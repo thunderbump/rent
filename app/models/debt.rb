@@ -8,6 +8,12 @@ class Debt < ActiveRecord::Base
 
   validates :amount, :numericality => { :greater_than_or_equal_to => 0 }
 
+  def expense_everyone
+    User.all.each do |user|
+      debtors.create(:user_id => user.id)
+    end
+  end
+
   def users_share(user)
     total_shares = 0
     my_share = 0

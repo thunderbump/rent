@@ -42,8 +42,15 @@ class DebtsController < ApplicationController
 
   def destroy
     @debt = Debt.find(params[:id])
+    if current_user.id != @debt.owner.id
+      redirect_to dashboard_sessions_path
+      return
+    end
     @debt.debtors.each do |debtor|
       debtor.destroy
+    end
+    if @debt.invoice
+      @debt.invoice.destroy
     end
     @debt.destroy
     redirect_to dashboard_sessions_path

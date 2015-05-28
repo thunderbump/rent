@@ -1,11 +1,14 @@
 <% @items.each do |item| %>
   <div data-itemid="<%= item.id %>" class="selectable <%= @invoice.items.pluck(:id).include?(item.id) ? "selected" : ""%>">
-    <%= link_to item.description, toggle_item_in_invoice_path(:item_id => item.id), :remote => true, :class => "list_link" %>
+    <p class="big">
+      <%= item.description %>
+    </p>
   </div>
 <% end %>
+<div class="group_area zoomed">
 <%= form_tag invoice_path(@invoice.id), method: "put" do %>
   <%= label_tag :cost, "Cost" %>
   <%= text_field_tag :cost %>
-  <%= submit_tag %>
+  <%= submit_tag "Expense" %>
 <% end %>
-
+</div>

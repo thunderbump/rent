@@ -40,8 +40,7 @@
 <% end %>
 </div>
 <div class="group_area">
-  <h1>House Needs</h1>
-  <%= link_to "At the store", store_path, :class => "group_links" %>
+  <h1>House Needs - <%= link_to "At the store", store_path, :class => "group_links" %></h1>
   <table>
     <% @needed_items.each do |item| %>
       <tr>

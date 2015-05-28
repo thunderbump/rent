@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :items
   post "add_to_list", :to => "items#add_to_list", :as => "add_to_list"
-  get "store", :to => "items#store", :as => "store"
+  get "store", :to => "invoices#store", :as => "store"
 
   resources :invoices
 #  get "add_item_to_invoice/:invoice_id/:item_id", :to => "invoices#add_item_to_invoice", :as => "add_item_to_invoice"

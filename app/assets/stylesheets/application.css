@@ -97,6 +97,14 @@ a.header_links:visited {
 	background-color: #2ECC71;
 }
 
+.big {
+	font-size: 5vh;
+}
+
+.zoomed {
+	zoom: 200%;
+}
+
 a.group_links:link {
 	color: black;
 	text-decoration: none;

@@ -10,20 +10,31 @@
       <td>
         <% @debt.users.each do |user| %>
           <%= user %></td></tr><td></td><td>
-        <% end %>
-      </td>
-    </tr>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Amount:</td>
+    <td><%= number_to_currency(@debt.amount) %></td>
+  </tr>
+  <tr>
+    <td>Your share</td>
+    <td><%= number_to_currency(@debt.users_share(current_user)) %></td>
+  </tr>
+  <% if @debt.invoice %>
     <tr>
-      <td>Amount:</td>
-      <td><%= number_to_currency(@debt.amount) %></td>
+      <td>Items on Invoice:</td>
+      <% @debt.invoice.items.each do |item| %>
+        <td><%= item.description %></td>
+      </tr>
+      <tr><td></td>
+      <% end %>
     </tr>
-    <tr>
-      <td>Your share</td>
-      <td><%= number_to_currency(@debt.users_share(current_user)) %></td>
-    </tr>
-  </table>
-  <br />
-  <br />
-  <%= link_to 'Edit', edit_debt_path(@debt) %> |
-  <%= link_to 'Back', root_path %>
+  <% end %>
+</table>
+<br />
+<br />
+<%= link_to 'Delete', debt_path(@debt), method: :delete, data: {confirm: "Are you sure?"} %> |
+<%= link_to 'Edit', edit_debt_path(@debt) %> |
+<%= link_to 'Back', root_path %>
 </div>

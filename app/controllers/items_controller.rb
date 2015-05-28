@@ -52,10 +52,10 @@ class ItemsController < ApplicationController
     end
   end
 
-  def store
-    @items = Item.where(needed: true)
-    @invoice = Invoice.find_or_create_by(owner_id: current_user.id, expensed: false)
-  end
+  #def store
+  #  @items = Item.where(needed: true)
+  #  @invoice = Invoice.find_or_create_by(owner_id: current_user.id, expensed: false)
+  #end
 
   private
     def set_item

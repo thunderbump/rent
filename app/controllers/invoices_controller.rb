@@ -31,10 +31,18 @@ class InvoicesController < ApplicationController
     if params[:cost]
       @debt = Debt.create(description: "Store trip", amount: params[:cost], owner_id: current_user.id)
       @debt.save
+      @debt.expense_everyone
+
       @invoice.expensed = true
       @invoice.debt_id = @debt.id
+
+      @invoice.items.each do |item|
+        item.needed = false
+      end
+
       @invoice.save
-      redirect_to edit_debt_path(@debt)
+
+      redirect_to root_path
     else
       @invoice.update(invoice_params)
       respond_with(@invoice)
@@ -46,16 +54,16 @@ class InvoicesController < ApplicationController
     respond_with(@invoice)
   end
 
-#  def add_item_to_invoice
-#    @invoice = Invoice.find(params[:invoice_id])
-#    @item = Item.find(params[:item_id])
-#    LineItem.find_or_create_by(invoice_id: @invoice.id, item_id: @item.id).save
-#    respond_to do |format|
-#      format.js
-#    end
-#  end
+  #  def add_item_to_invoice
+  #    @invoice = Invoice.find(params[:invoice_id])
+  #    @item = Item.find(params[:item_id])
+  #    LineItem.find_or_create_by(invoice_id: @invoice.id, item_id: @item.id).save
+  #    respond_to do |format|
+  #      format.js
+  #    end
+  #  end
 
-#  def add_item_to_invoice
+  #  def add_item_to_invoice
   def toggle_item_in_invoice
     #@invoice = Invoice.find(params[:invoice_id])
     @invoice = Invoice.where(owner_id: current_user.id, expensed: false).first
@@ -74,12 +82,18 @@ class InvoicesController < ApplicationController
     end
   end
 
-  private
-    def set_invoice
-      @invoice = Invoice.find(params[:id])
-    end
+  def store
+    @items = Item.where(needed: true)
+    @invoice = Invoice.find_or_create_by(owner_id: current_user.id, expensed: false)
+  end
 
-    def invoice_params
-      params.require(:invoice).permit(:description)#, :invoice_id, :item_id)
-    end
+
+  private
+  def set_invoice
+    @invoice = Invoice.find(params[:id])
+  end
+
+  def invoice_params
+    params.require(:invoice).permit(:description)#, :invoice_id, :item_id)
+  end
 end
