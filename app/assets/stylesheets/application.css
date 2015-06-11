@@ -28,21 +28,21 @@ body {
 	-moz-transform: translateY(-50%);
 	-o-transform: translateY(-50%);
 
-	color: black;
+	color: #EEEEEE;
 	
 }
 a.header_links:link {
-	color: black;
+	color: #EEEEEE;
 	text-decoration: none;
 	background-color: #4183D7;
 }
 a.header_links:hover {
-	color: black;
+	color: #EEEEEE;
 	text-decoration: underline;
 	background-color: #4183D7;
 }
 a.header_links:visited {
-	color: black;
+	color: #EEEEEE;
 	text-decoration: none;
 	background-color: #4183D7;
 }
@@ -106,17 +106,17 @@ a.header_links:visited {
 }
 
 a.group_links:link {
-	color: black;
+	color: #333333;
 	text-decoration: none;
 	background-color: #EEEEEE;
 }
 a.group_links:hover {
-	color: black;
+	color: #333333;
 	text-decoration: underline;
 	background-color: #EEEEEE;
 }
 a.group_links:visited {
-	color: black;
+	color: #333333;
 	text-decoration: none;
 	background-color: #EEEEEE;
 }

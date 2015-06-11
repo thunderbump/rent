@@ -23,6 +23,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
+    @item.needed = true
     @item.save
     redirect_to root_path
     #respond_with(@item)

@@ -25,7 +25,7 @@
     <tr>
       <td>Items on Invoice:</td>
       <% @debt.invoice.items.each do |item| %>
-        <td><%= item.description %></td>
+        <td><%= item.description.titleize %></td>
       </tr>
       <tr><td></td>
       <% end %>

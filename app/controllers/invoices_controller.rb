@@ -83,8 +83,8 @@ class InvoicesController < ApplicationController
   end
 
   def store
-    @items = Item.where(needed: true)
     @invoice = Invoice.find_or_create_by(owner_id: current_user.id, expensed: false)
+    @items = (Item.where(needed: true) + @invoice.items).uniq { |x| x.id } .sort_by &:description
   end
 
 
