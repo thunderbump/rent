@@ -130,6 +130,9 @@ tr.odd_row {
 tr.even_row {
 	background-color: #DDDDDD;
 }
+td {
+	padding: 0px 5px 0px 5px;
+}
 td.numeric_field {
 	text-align: right;
 }
