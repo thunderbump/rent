@@ -1,0 +1,10 @@
+<div class="group_area">
+  <h1>Payment History</h1>
+  <table>
+    <%= render :partial => "/common/line_item_header" %>
+    <% @payments.each do |element| %>
+      <%= render :partial => "/common/line_item_tr", locals: { element: element, user: current_user, tr_class: cycle("odd_row", "even_row")} %>
+    <% end %>
+  </table>
+</div>
+

@@ -27,6 +27,11 @@ class Debt < ActiveRecord::Base
     return amount * share_ratio
   end
 
+  #implement later
+  def running_total
+    return nil
+  end
+
   def to_s
     "#{owner.to_s}: #{description}"
   end

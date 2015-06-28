@@ -59,6 +59,10 @@ class PaymentsController < ApplicationController
     redirect_to dashboard_sessions_path
   end
 
+  def history
+    @payments = current_user.all_payments
+  end
+
   private
     def set_payment
       @payment = Payment.find(params[:id])

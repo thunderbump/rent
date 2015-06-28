@@ -8,6 +8,7 @@ class Payment < ActiveRecord::Base
   validate :source_and_destination_cannot_be_equal
   validates :amount, :numericality => { :greater_than_or_equal_to => 0 }
   validates :source, :destination, :creator, presence: true
+  after_create :set_running_total
   
   #This should return negative. It's only used when payments are used in 
   #conjunction with debts who's user_share should be positive.
@@ -39,5 +40,13 @@ class Payment < ActiveRecord::Base
     if source == destination
       errors.add(:source, "can't be the same as the destination")
     end
+  end
+
+  def set_running_total
+    self.running_total = self.source.current_bill_with(self.destination)
+    unless self.accepted
+      self.running_total -= self.amount
+    end
+    self.save
   end
 end

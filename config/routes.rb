@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "toggle_item_in_invoice", :to => "invoices#toggle_item_in_invoice", :as => "toggle_item_in_invoice_base"
 
   resources :payments, :debts
+  get "payment_history", :to => "payments#history", :as => "payment_history"
 
   devise_for :users, controllers: {
     registrations: "users/registrations",

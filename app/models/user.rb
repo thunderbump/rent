@@ -26,6 +26,29 @@ class User < ActiveRecord::Base
     payer_debts.sum - biller_debts.sum + payer_payments.sum - biller_payments.sum
   end
 
+  def current_bill_before_date_with(user, date)
+    payer_debts = Debt.joins(:debtors).where("debtors.user_id = ?", id
+                                     ).where(owner_id: user.id
+                                     ).where("debts.created_at <= ?", date
+                                     ).map { |p| p.users_share(self) }
+    biller_debts = Debt.joins(:debtors).where("debtors.user_id = ?", user.id
+                                      ).where(owner_id: id
+                                      ).where("debts.created_at <= ?", date
+                                      ).map { |p| p.users_share(user) }
+    payer_payments = Payment.where(source_id: id
+                           ).where(destination_id: user.id
+                           ).where(accepted: true
+                           ).where("payments.created_at <= ?", date
+                           ).map { |p| p.users_share(self) }
+    biller_payments = Payment.where(source_id: user.id
+                            ).where(destination_id: id
+                            ).where(accepted: true
+                            ).where("payments.created_at <= ?", date
+                            ).map { |p| p.users_share(user) }
+
+    payer_debts.sum - biller_debts.sum + payer_payments.sum - biller_payments.sum
+  end
+
   def all_debts
     (debts + Debt.where("owner_id = :id", id: id)
     ).sort_by(&:created_at)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527054139) do
+ActiveRecord::Schema.define(version: 20150628212213) do
 
   create_table "debtors", force: true do |t|
     t.integer  "user_id"
@@ -71,11 +71,55 @@ ActiveRecord::Schema.define(version: 20150527054139) do
     t.integer  "destination_id"
     t.integer  "creator_id"
     t.boolean  "accepted"
+    t.float    "running_total"
   end
 
   add_index "payments", ["creator_id"], name: "index_payments_on_creator_id"
   add_index "payments", ["destination_id"], name: "index_payments_on_destination_id"
   add_index "payments", ["source_id"], name: "index_payments_on_source_id"
+
+  create_table "probe_tags", force: true do |t|
+    t.integer  "probe_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "probe_tags", ["probe_id"], name: "index_probe_tags_on_probe_id"
+  add_index "probe_tags", ["tag_id"], name: "index_probe_tags_on_tag_id"
+
+  create_table "probes", force: true do |t|
+    t.string   "description"
+    t.string   "ip"
+    t.string   "oid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "readings", force: true do |t|
+    t.float    "value"
+    t.integer  "probe_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "readings", ["probe_id"], name: "index_readings_on_probe_id"
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_tags", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_tags", ["tag_id"], name: "index_user_tags_on_tag_id"
+  add_index "user_tags", ["user_id"], name: "index_user_tags_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",         null: false
@@ -96,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150527054139) do
     t.boolean  "admin",                  default: false
     t.float    "share",                  default: 1.0
     t.integer  "owner_id"
+    t.boolean  "brewing_dashboard"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
